@@ -449,6 +449,16 @@ class ReflectionFunction extends ReflectionElement implements IReflectionFunctio
 	}
 
 	/**
+	 * Returns if the function/method is variadic.
+	 *
+	 * @return null
+	 */
+	public function isVariadic()
+	{
+		return null;
+	}
+
+	/**
 	 * Returns if the function definition is valid.
 	 *
 	 * @return boolean

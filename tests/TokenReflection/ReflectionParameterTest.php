@@ -305,6 +305,19 @@ class ReflectionParameterTest extends Test
 	}
 
 	/**
+	 * Tests new PHP 5.6 features.
+	 */
+	public function test56features()
+	{
+		if (PHP_VERSION_ID < 50600) {
+			$this->markTestSkipped('Tested only on PHP 5.6+');
+		}
+
+		$rfl = $this->getParameterReflection('56features');
+		$this->assertSame($rfl->token->isVariadic(), $rfl->internal->isVariadic());
+	}
+
+	/**
 	 * Tests an exception thrown when trying to create the reflection from a PHP internal reflection.
 	 *
 	 * @expectedException \TokenReflection\Exception\RuntimeException

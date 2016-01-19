@@ -38,6 +38,13 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 	const CALLABLE_TYPE_HINT = 'callable';
 
 	/**
+	 * The parameter is variadic.
+	 *
+	 * @var string
+	 */
+	const VARIADIC = '...';
+
+	/**
 	 * Declaring class name.
 	 *
 	 * @var string
@@ -259,6 +266,16 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 	}
 
 	/**
+	 * Returns if the parameter is variadic.
+	 *
+	 * @return boolean
+	 */
+	public function isVariadic()
+	{
+		return $this->typeHint === self::VARIADIC;
+	}
+
+	/**
 	 * Returns the original type hint as defined in the source code.
 	 *
 	 * @return string|null
@@ -424,6 +441,8 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 			$hint = self::ARRAY_TYPE_HINT;
 		} elseif ($this->isCallable()) {
 			$hint = self::CALLABLE_TYPE_HINT;
+		} elseif ($this->isVariadic()) {
+			$hint = self::VARIADIC;
 		} else {
 			$hint = '';
 		}
@@ -576,6 +595,10 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 		} elseif (T_CALLABLE === $type) {
 			$this->typeHint = self::CALLABLE_TYPE_HINT;
 			$this->originalTypeHint = self::CALLABLE_TYPE_HINT;
+			$tokenStream->skipWhitespaces(true);
+		} elseif (T_ELLIPSIS === $type) {
+			$this->typeHint = self::VARIADIC;
+			$this->originalTypeHint = self::VARIADIC;
 			$tokenStream->skipWhitespaces(true);
 		} elseif (T_STRING === $type || T_NS_SEPARATOR === $type) {
 			$className = '';

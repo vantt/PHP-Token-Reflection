@@ -180,6 +180,16 @@ class ReflectionFunction extends ReflectionFunctionBase implements IReflectionFu
 	}
 
 	/**
+	 * Returns if the function definition is variadic.
+	 *
+	 * @return null
+	 */
+	public function isVariadic()
+	{
+		return null;
+	}
+
+	/**
 	 * Processes the parent reflection object.
 	 *
 	 * @param \TokenReflection\IReflection $parent Parent reflection object

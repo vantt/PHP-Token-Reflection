@@ -288,6 +288,16 @@ class ReflectionMethod extends ReflectionFunctionBase implements IReflectionMeth
 	}
 
 	/**
+	 * Returns if the method is variadic
+	 *
+	 * @return boolean
+	 */
+	public function isVariadic()
+	{
+		return null;
+	}
+
+	/**
 	 * Shortcut for isPublic(), ... methods that allows or-ed modifiers.
 	 *
 	 * The {@see getModifiers()} method is called only when really necessary making this

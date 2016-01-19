@@ -310,6 +310,16 @@ class ReflectionMethod extends InternalReflectionMethod implements IReflection, 
 	}
 
 	/**
+	 * Returns if the method is variadic.
+	 *
+	 * @return boolean
+	 */
+	public function isVariadic()
+	{
+		return PHP_VERSION_ID >= 50600 ? parent::isVariadic() : null;
+	}
+
+	/**
 	 * Returns the original name when importing from a trait.
 	 *
 	 * @return string
