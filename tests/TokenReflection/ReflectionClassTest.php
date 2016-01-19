@@ -1301,6 +1301,10 @@ class ReflectionClassTest extends Test
 			// Test traits only on PHP >= 5.4
 			$tests[] = 'traits';
 		}
+		if (PHP_VERSION_ID >= 70000) {
+			// https://bugs.php.net/bug.php?id=71415
+			unset($tests[array_search('docComment', $tests)]);
+		}
 
 		foreach ($tests as $test) {
 			$rfl = $this->getClassReflection($test);
