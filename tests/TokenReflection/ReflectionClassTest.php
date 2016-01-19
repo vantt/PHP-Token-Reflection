@@ -1396,7 +1396,10 @@ class ReflectionClassTest extends Test
 			$this->assertSame($definition[4], count($reflection->getTraitProperties()), $className);
 
 			foreach ($reflection->getTraitMethods() as $method) {
-				$this->assertTrue($reflection->hasMethod($method->getName()), $className);
+				$traitAliases	= $reflection->getTraitAliases();
+				$methodName		= $method->getName();
+				$expectedMethod = array_key_exists ($methodName, $traitAliases) ? substr(strrchr($traitAliases[$methodName], ':'), 1) : $methodName;
+				$this->assertTrue($reflection->hasMethod($expectedMethod), $className);
 				$this->assertNotNull($method->getDeclaringTraitName(), $className);
 			}
 			$this->assertSame($definition[5], count($reflection->getTraitMethods()), $className);
