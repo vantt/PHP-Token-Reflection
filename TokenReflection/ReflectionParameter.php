@@ -276,6 +276,26 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 	}
 
 	/**
+	 * Returns if the parameter has type hint.
+	 *
+	 * @return boolean
+	 */
+	public function hasType()
+	{
+		return !empty($this->typeHint);
+	}
+
+	/**
+	 * Returns the type of parameter
+	 *
+	 * @return mixed
+	 */
+	public function getType()
+	{
+		return $this->typeHint;
+	}
+
+	/**
 	 * Returns the original type hint as defined in the source code.
 	 *
 	 * @return string|null

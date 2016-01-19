@@ -252,6 +252,10 @@ class ConsistencyTest extends Test
 			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('isVariadic' => true);
 		}
 
+		if (PHP_VERSION_ID < 70000) {
+			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('hasType' => true, 'getType' => true);
+		}
+
 		$methods = $reference->getMethods(\ReflectionMethod::IS_PUBLIC);
 		foreach ($methods as $method) {
 			if ($method->isStatic()) {
