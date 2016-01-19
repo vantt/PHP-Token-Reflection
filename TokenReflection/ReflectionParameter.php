@@ -596,7 +596,7 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 			$this->typeHint = self::CALLABLE_TYPE_HINT;
 			$this->originalTypeHint = self::CALLABLE_TYPE_HINT;
 			$tokenStream->skipWhitespaces(true);
-		} elseif (T_ELLIPSIS === $type) {
+		} elseif (defined('T_ELLIPSIS') && T_ELLIPSIS === $type) {
 			$this->typeHint = self::VARIADIC;
 			$this->originalTypeHint = self::VARIADIC;
 			$tokenStream->skipWhitespaces(true);
