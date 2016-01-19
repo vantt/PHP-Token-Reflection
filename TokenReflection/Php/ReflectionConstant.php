@@ -372,7 +372,7 @@ class ReflectionConstant implements IReflection, TokenReflection\IReflectionCons
 	{
 		return sprintf(
 			"Constant [ %s %s ] { %s }\n",
-			gettype($this->getValue()),
+			str_replace('double', PHP_VERSION_ID >= 70000 ? 'float' : 'double', gettype($this->getValue())),
 			$this->getName(),
 			$this->getValue()
 		);

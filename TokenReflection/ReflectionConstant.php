@@ -160,7 +160,7 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 	{
 		return sprintf(
 			"Constant [ %s %s ] { %s }\n",
-			strtolower(gettype($this->getValue())),
+			str_replace('double', PHP_VERSION_ID >= 70000 ? 'float' : 'double', gettype($this->getValue())),
 			$this->getName(),
 			$this->getValue()
 		);
