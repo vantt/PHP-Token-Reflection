@@ -231,6 +231,16 @@ class ReflectionFunction extends InternalReflectionFunction implements IReflecti
 	}
 
 	/**
+	 * Returns if the function/method is generator.
+	 *
+	 * @return null
+	 */
+	public function isGenerator ()
+	{
+		return PHP_VERSION_ID >= 50500 ? parent::isGenerator() : null;
+	}
+
+	/**
 	 * Returns if the function definition is valid.
 	 *
 	 * Internal functions are always valid.

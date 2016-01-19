@@ -439,6 +439,16 @@ class ReflectionFunction extends ReflectionElement implements IReflectionFunctio
 	}
 
 	/**
+	 * Returns if the function/method is generator.
+	 *
+	 * @return null
+	 */
+	public function isGenerator()
+	{
+		return null;
+	}
+
+	/**
 	 * Returns if the function definition is valid.
 	 *
 	 * @return boolean

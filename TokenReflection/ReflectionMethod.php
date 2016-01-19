@@ -86,6 +86,16 @@ class ReflectionMethod extends ReflectionFunctionBase implements IReflectionMeth
 	const IS_ALLOWED_STATIC = 0x10000;
 
 	/**
+	 * Method is a generator
+	 *
+	 * @see http://svn.php.net/viewvc/php/php-src/branches/PHP_5_3/Zend/zend_compile.h?revision=306939&view=markup#l143
+	 * ZEND_ACC_GENERATOR
+	 *
+	 * @var integer
+	 */
+	const IS_GENERATOR = 0x800000;
+
+	/**
 	 * Declaring class name.
 	 *
 	 * @var string
@@ -265,6 +275,16 @@ class ReflectionMethod extends ReflectionFunctionBase implements IReflectionMeth
 	public function isStatic()
 	{
 		return (bool) ($this->modifiers & InternalReflectionMethod::IS_STATIC);
+	}
+
+	/**
+	 * Returns if the method is a generator.
+	 *
+	 * @return boolean
+	 */
+	public function isGenerator()
+	{
+		return (bool) ($this->modifiers & InternalReflectionMethod::IS_GENERATOR);
 	}
 
 	/**
