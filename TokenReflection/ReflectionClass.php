@@ -1476,6 +1476,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 		$sCount = 0;
 		$buffer = '';
 		$count = 0;
+		$traitAliases = $this->getTraitAliases ();
 		foreach ($this->getMethods() as $method) {
 			// Skip private methods of parent classes
 			if ($method->getDeclaringClassName() !== $this->getName() && $method->isPrivate()) {
@@ -1492,6 +1493,16 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 					array('\0, inherits ' . $method->getDeclaringClassName(), ''),
 					$string
 				);
+			}
+			// Replace Aliases
+			if (array_key_exists($method->getName (), $traitAliases))
+			{
+				$string = preg_replace(
+					'~\b'.$method->getName ().'\b~',
+					substr(strrchr($traitAliases[$method->getName ()], ':'), 1),
+					$string
+				);
+				unset ($traitAliases[$method->getName ()]);
 			}
 			if ($method->isStatic()) {
 				$sBuffer .= $string;
