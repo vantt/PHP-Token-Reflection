@@ -226,13 +226,15 @@ class ReflectionMethodTest extends Test
 		$this->assertSame($internal->isDestructor(), $token->isDestructor());
 		$this->assertTrue($token->isDestructor());
 
-		$rfl = $this->getClassReflection('namedConstructor');
+		if (PHP_VERSION_ID < 70000) {
+			$rfl = $this->getClassReflection('namedConstructor');
 
-		$internal = $rfl->internal->getMethod($this->getClassName('namedConstructor'));
-		$token = $rfl->token->getMethod($this->getClassName('namedConstructor'));
+			$internal = $rfl->internal->getMethod($this->getClassName('namedConstructor'));
+			$token = $rfl->token->getMethod($this->getClassName('namedConstructor'));
 
-		$this->assertSame($internal->isConstructor(), $token->isConstructor());
-		$this->assertTrue($token->isConstructor());
+			$this->assertSame($internal->isConstructor(), $token->isConstructor());
+			$this->assertTrue($token->isConstructor());
+		}
 
 		require_once $this->getFilePath('namedConstructorInNamespace');
 		$this->getBroker()->processFile($this->getFilePath('namedConstructorInNamespace'));
