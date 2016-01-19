@@ -1959,7 +1959,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 
 									$this->traitAliases[$rightSide[0]] = $leftSide;
 								} else {
-									$this->traitAliases[$rightSide[0]] = '(null)::' . $leftSide;
+									$this->traitAliases[$rightSide[0]] = $traitName . '::' . $leftSide;
 								}
 
 								$this->traitImports[$leftSide][] = $rightSide;
