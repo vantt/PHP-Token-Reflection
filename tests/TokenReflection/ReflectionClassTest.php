@@ -1362,10 +1362,10 @@ class ReflectionClassTest extends Test
 	{
 		static $expected = array(
 			'TokenReflection_Test_ClassTraitsTrait1' => array(true, array(), array(), array(), 0, 0),
-			'TokenReflection_Test_ClassTraitsTrait2' => array(true, array('t2privatef' => '(null)::privatef'), array('TokenReflection_Test_ClassTraitsTrait1'), array('TokenReflection_Test_ClassTraitsTrait1'), 6, 3),
+			'TokenReflection_Test_ClassTraitsTrait2' => array(true, array('t2privatef' => 'TokenReflection_Test_ClassTraitsTrait1::privatef'), array('TokenReflection_Test_ClassTraitsTrait1'), array('TokenReflection_Test_ClassTraitsTrait1'), 6, 3),
 			'TokenReflection_Test_ClassTraitsTrait3' => array(true, array(), array(), array(), 0, 0),
 			'TokenReflection_Test_ClassTraitsTrait4' => array(true, array(), array(), array(), 0, 0),
-			'TokenReflection_Test_ClassTraits' => array(false, array('privatef2' => '(null)::publicf', 'publicf3' => '(null)::protectedf', 'publicfOriginal' => '(null)::publicf'), array('TokenReflection_Test_ClassTraitsTrait1'), array('TokenReflection_Test_ClassTraitsTrait1'), 6, 6),
+			'TokenReflection_Test_ClassTraits' => array(false, array('privatef2' => 'TokenReflection_Test_ClassTraitsTrait1::publicf', 'publicf3' => 'TokenReflection_Test_ClassTraitsTrait1::protectedf', 'publicfOriginal' => 'TokenReflection_Test_ClassTraitsTrait1::publicf'), array('TokenReflection_Test_ClassTraitsTrait1'), array('TokenReflection_Test_ClassTraitsTrait1'), 6, 6),
 			'TokenReflection_Test_ClassTraits2' => array(false, array(), array('TokenReflection_Test_ClassTraitsTrait2'), array('TokenReflection_Test_ClassTraitsTrait2'), 6, 3),
 			'TokenReflection_Test_ClassTraits3' => array(false, array(), array('TokenReflection_Test_ClassTraitsTrait1'), array('TokenReflection_Test_ClassTraitsTrait1'), 6, 2),
 			'TokenReflection_Test_ClassTraits4' => array(false, array(), array('TokenReflection_Test_ClassTraitsTrait3', 'TokenReflection_Test_ClassTraitsTrait4'), array('TokenReflection_Test_ClassTraitsTrait3', 'TokenReflection_Test_ClassTraitsTrait4'), 2, 1)
