@@ -1428,7 +1428,7 @@ class ReflectionClassTest extends Test
 			}
 		}
 
-		if (PHP_VERSION_ID >= 50400) {
+		if (PHP_VERSION_ID >= 50400 && PHP_VERSION_ID <= 50500) {
 			// Try the internal reflection
 			$internal = new \ReflectionClass('TokenReflection_Test_NewInstanceWithoutConstructor1');
 			try {
@@ -1453,7 +1453,7 @@ class ReflectionClassTest extends Test
 			}
 		}
 
-		if (PHP_VERSION_ID >= 50400) {
+		if (PHP_VERSION_ID >= 50400 && PHP_VERSION_ID <= 50500) {
 			// Try the internal reflection
 			$internal = new \ReflectionClass('Exception');
 			try {
