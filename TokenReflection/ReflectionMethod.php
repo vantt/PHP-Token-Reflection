@@ -298,6 +298,26 @@ class ReflectionMethod extends ReflectionFunctionBase implements IReflectionMeth
 	}
 
 	/**
+	 * Returns if the method has return type
+	 *
+	 * @return boolean
+	 */
+	public function hasReturnType()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns if the method return type
+	 *
+	 * @return boolean
+	 */
+	public function getReturnType()
+	{
+		return null;
+	}
+
+	/**
 	 * Shortcut for isPublic(), ... methods that allows or-ed modifiers.
 	 *
 	 * The {@see getModifiers()} method is called only when really necessary making this

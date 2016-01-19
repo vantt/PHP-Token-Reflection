@@ -132,6 +132,26 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 	}
 
 	/**
+	 * Returns if the function/method has defined return type
+	 *
+	 * @return string|null
+	 */
+	public function hasReturnType()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the function/method return type.
+	 *
+	 * @return string|null
+	 */
+	public function getReturnType()
+	{
+		return null;
+	}
+
+	/**
 	 * Returns if the function/method returns its value as reference.
 	 *
 	 * @return boolean

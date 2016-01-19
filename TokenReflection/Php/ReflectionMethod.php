@@ -123,6 +123,16 @@ class ReflectionMethod extends InternalReflectionMethod implements IReflection, 
 	}
 
 	/**
+	 * Returns if method has defined return type.
+	 *
+	 * @return boolean
+	 */
+	public function hasReturnType()
+	{
+		return PHP_VERSION_ID >= 70000 ? parent::hasReturnType() : null;
+	}
+
+	/**
 	 * Returns if the current reflection comes from a tokenized source.
 	 *
 	 * @return boolean
