@@ -256,6 +256,7 @@ class ConsistencyTest extends Test
 			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('hasType' => true, 'getType' => true);
 			$skip['TokenReflection\\Php\\ReflectionFunction'] = array('hasReturnType' => true, 'getReturnType' => true);
 			$skip['TokenReflection\\Php\\ReflectionMethod'] = array('hasReturnType' => true, 'getReturnType' => true);
+			$skip['TokenReflection\\Php\\ReflectionClass'] = array('isAnonymous' => true);
 		}
 
 		$methods = $reference->getMethods(\ReflectionMethod::IS_PUBLIC);

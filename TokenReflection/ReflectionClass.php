@@ -1177,6 +1177,16 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	}
 
 	/**
+	 * Returns if the class is anonymous.
+	 *
+	 * @return boolean
+	 */
+	public function isAnonymous()
+	{
+		return false;
+	}
+
+	/**
 	 * Returns if the class definition is valid.
 	 *
 	 * @return boolean
