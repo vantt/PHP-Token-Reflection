@@ -18,6 +18,9 @@ namespace TokenReflection;
 use TokenReflection\Exception, TokenReflection\Stream\StreamBase as Stream;
 use ReflectionClass as InternalReflectionClass, ReflectionProperty as InternalReflectionProperty, ReflectionMethod as InternalReflectionMethod;
 
+define ('IS_INTERFACE', PHP_VERSION_ID >= 70000 ? 0x40 : 0x80);
+define ('IS_TRAIT',		PHP_VERSION_ID >= 70000 ? 0x80 : 0x120);
+
 /**
  * Tokenized class reflection.
  */
@@ -29,7 +32,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	 * @var integer
 	 * @see http://svn.php.net/viewvc/php/php-src/branches/PHP_5_3/Zend/zend_compile.h?revision=306939&view=markup#l122
 	 */
-	const IS_INTERFACE = 0x80;
+	const IS_INTERFACE = IS_INTERFACE;
 
 	/**
 	 * Modifier for determining if the reflected object is a trait.
@@ -37,7 +40,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	 * @var integer
 	 * @see http://svn.php.net/viewvc/php/php-src/trunk/Zend/zend_compile.h?revision=306938&view=markup#l150
 	 */
-	const IS_TRAIT = 0x120;
+	const IS_TRAIT = IS_TRAIT;
 
 	/**
 	 * Class implements interfaces.
