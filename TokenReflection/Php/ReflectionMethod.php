@@ -300,6 +300,16 @@ class ReflectionMethod extends InternalReflectionMethod implements IReflection, 
 	}
 
 	/**
+	 * Returns if the method is a generator.
+	 *
+	 * @return boolean
+	 */
+	public function isGenerator()
+	{
+		return PHP_VERSION_ID >= 50500 ? parent::isGenerator() : null;
+	}
+
+	/**
 	 * Returns the original name when importing from a trait.
 	 *
 	 * @return string
