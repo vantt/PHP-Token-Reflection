@@ -260,6 +260,7 @@ class ReflectionBrokerTest extends Test
 					'no-namespace.php',
 					'overriding.php',
 					'pretty-names.php',
+					'scalar56.php',
 					'type-boolean.php',
 					'type-constant.php',
 					'type-float.php',

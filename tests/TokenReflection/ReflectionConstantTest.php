@@ -648,6 +648,34 @@ class ReflectionConstantTest extends Test
 	}
 
 	/**
+	 * Tests the scalar expressions in constants.
+	 *
+	 * For PHP >= 5.6 only.
+	 */
+	public function testScalarConstants56()
+	{
+		if (PHP_VERSION_ID < 50600) {
+			$this->markTestSkipped('PHP >= 5.6 only');
+		}
+
+		$broker = new Broker(new Broker\Backend\Memory());
+		$broker->process($this->getFilePath('scalar56'));
+
+		require_once ($this->getFilePath('scalar56'));
+
+		$internal_constants = get_defined_constants(true);
+		$internal_constants = $internal_constants['user'];
+
+		$token_constants = $broker->getConstants();
+		$this->assertSame(3, count($token_constants));
+
+		foreach ($token_constants as $name => $reflection) {
+			$this->assertTrue(isset($internal_constants[$name]));
+			$this->assertSame($internal_constants[$name], $reflection->getValue(), $name);
+		}
+	}
+
+	/**
 	 * Tests returning pretty constant names.
 	 */
 	public function testPrettyNames()
