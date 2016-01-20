@@ -439,6 +439,46 @@ class ReflectionFunction extends ReflectionElement implements IReflectionFunctio
 	}
 
 	/**
+	 * Returns if the function/method is generator.
+	 *
+	 * @return null
+	 */
+	public function isGenerator()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns if the function/method is variadic.
+	 *
+	 * @return null
+	 */
+	public function isVariadic()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns if the function/method has defined return type.
+	 *
+	 * @return null
+	 */
+	public function hasReturnType()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the function/method return type.
+	 *
+	 * @return null
+	 */
+	public function getReturnType()
+	{
+		return null;
+	}
+
+	/**
 	 * Returns if the function definition is valid.
 	 *
 	 * @return boolean

@@ -131,7 +131,7 @@ class ReflectionParameterTest extends Test
 			$this->assertSame($paramName, $parameter->getName(), $parameter->getName());
 			$this->assertSame($paramName, $tokenParameter->getName(), $parameter->getName());
 
-			if (PHP_VERSION_ID !== 50316) { // https://bugs.php.net/bug.php?id=62715
+			if (PHP_VERSION_ID <= 50316) { // https://bugs.php.net/bug.php?id=62715
 				$this->assertSame($defaultValueAvailable, $parameter->isDefaultValueAvailable(), $parameter->getName());
 				$this->assertSame($defaultValueAvailable, $tokenParameter->isDefaultValueAvailable(), $parameter->getName());
 
@@ -302,6 +302,19 @@ class ReflectionParameterTest extends Test
 			$token = $rfl->token->getParameter($internal->getPosition());
 			$this->assertSame($internal->getDefaultValue(), $token->getDefaultValue());
 		}
+	}
+
+	/**
+	 * Tests new PHP 5.6 features.
+	 */
+	public function test56features()
+	{
+		if (PHP_VERSION_ID < 50600) {
+			$this->markTestSkipped('Tested only on PHP 5.6+');
+		}
+
+		$rfl = $this->getParameterReflection('56features');
+		$this->assertSame($rfl->token->isVariadic(), $rfl->internal->isVariadic());
 	}
 
 	/**

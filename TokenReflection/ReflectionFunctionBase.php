@@ -132,6 +132,26 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 	}
 
 	/**
+	 * Returns if the function/method has defined return type
+	 *
+	 * @return string|null
+	 */
+	public function hasReturnType()
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the function/method return type.
+	 *
+	 * @return string|null
+	 */
+	public function getReturnType()
+	{
+		return null;
+	}
+
+	/**
 	 * Returns if the function/method returns its value as reference.
 	 *
 	 * @return boolean
@@ -316,6 +336,9 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 		}
 
 		static $accepted = array(T_NS_SEPARATOR => true, T_STRING => true, T_ARRAY => true, T_CALLABLE => true, T_VARIABLE => true, '&' => true);
+		if (PHP_VERSION_ID >= 50600) {
+			$accepted[T_ELLIPSIS] = true;
+		}
 
 		$tokenStream->skipWhitespaces(true);
 

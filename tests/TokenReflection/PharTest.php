@@ -137,7 +137,7 @@ class PharTest extends Test
 	public function testBZippedPharArchive()
 	{
 		if (!extension_loaded('bz2')) {
-			$this->markTestSkipped('The zlib extension is required to run this test.');
+			$this->markTestSkipped('The bz2 extension is required to run this test.');
 		}
 
 		$testData = array_merge(
@@ -176,11 +176,11 @@ class PharTest extends Test
 	 */
 	private function cleanUpTemporaryStorage($path)
 	{
-		$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+		$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS));
 		foreach ($iterator as $item) {
 			if ($item->isFile()) {
 				unlink($item->getPathName());
-			} elseif ($item->isDir() && !$item->isDot()) {
+			} elseif ($item->isDir()) {
 				rmdir($item->getPathName());
 			}
 		}
@@ -206,7 +206,11 @@ class PharTest extends Test
 		$directory = realpath(__DIR__ . '/../data/');
 		$iterator = new \DirectoryIterator($directory);
 
-		static $skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true);
+		if (PHP_VERSION_ID >= 50600) {
+			$skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true);
+		} else {
+			$skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true, 'constant' => true);
+		}
 
 		$data = array();
 		foreach ($iterator as $item) {

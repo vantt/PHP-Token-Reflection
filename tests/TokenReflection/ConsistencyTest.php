@@ -245,8 +245,21 @@ class ConsistencyTest extends Test
 		static $skip = array(
 			'*' => array('addReason' => true, 'getReasons' => true, 'hasReasons' => true),
 			'TokenReflection\\Php\\IReflection' => array('alias' => true, 'getFileReflection' => true, 'getSource' => true, 'getStartPosition' => true, 'getEndPosition' => true),
-			'TokenReflection\\Php\\ReflectionProperty' => array('setDefaultValue' => true)
+			'TokenReflection\\Php\\ReflectionProperty' => array('setDefaultValue' => true),
+			'TokenReflection\\Php\\ReflectionParameter' => array(),
 		);
+
+		if (PHP_VERSION_ID < 50600) {
+			$skip['TokenReflection\\ReflectionParameter'] = array('isVariadic' => true);
+			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('isVariadic' => true);
+		}
+
+		if (PHP_VERSION_ID < 70000) {
+			$skip['TokenReflection\\Php\\ReflectionParameter'] += array('hasType' => true, 'getType' => true);
+			$skip['TokenReflection\\Php\\ReflectionFunction'] = array('hasReturnType' => true, 'getReturnType' => true);
+			$skip['TokenReflection\\Php\\ReflectionMethod'] = array('hasReturnType' => true, 'getReturnType' => true);
+			$skip['TokenReflection\\Php\\ReflectionClass'] = array('isAnonymous' => true);
+		}
 
 		$methods = $reference->getMethods(\ReflectionMethod::IS_PUBLIC);
 		foreach ($methods as $method) {

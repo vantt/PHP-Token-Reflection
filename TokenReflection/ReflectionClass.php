@@ -18,6 +18,9 @@ namespace TokenReflection;
 use TokenReflection\Exception, TokenReflection\Stream\StreamBase as Stream;
 use ReflectionClass as InternalReflectionClass, ReflectionProperty as InternalReflectionProperty, ReflectionMethod as InternalReflectionMethod;
 
+define ('IS_INTERFACE', PHP_VERSION_ID >= 70000 ? 0x40 : 0x80);
+define ('IS_TRAIT',		PHP_VERSION_ID >= 70000 ? 0x80 : 0x120);
+
 /**
  * Tokenized class reflection.
  */
@@ -29,7 +32,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	 * @var integer
 	 * @see http://svn.php.net/viewvc/php/php-src/branches/PHP_5_3/Zend/zend_compile.h?revision=306939&view=markup#l122
 	 */
-	const IS_INTERFACE = 0x80;
+	const IS_INTERFACE = IS_INTERFACE;
 
 	/**
 	 * Modifier for determining if the reflected object is a trait.
@@ -37,7 +40,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	 * @var integer
 	 * @see http://svn.php.net/viewvc/php/php-src/trunk/Zend/zend_compile.h?revision=306938&view=markup#l150
 	 */
-	const IS_TRAIT = 0x120;
+	const IS_TRAIT = IS_TRAIT;
 
 	/**
 	 * Class implements interfaces.
@@ -1174,6 +1177,16 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 	}
 
 	/**
+	 * Returns if the class is anonymous.
+	 *
+	 * @return boolean
+	 */
+	public function isAnonymous()
+	{
+		return false;
+	}
+
+	/**
 	 * Returns if the class definition is valid.
 	 *
 	 * @return boolean
@@ -1476,6 +1489,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 		$sCount = 0;
 		$buffer = '';
 		$count = 0;
+		$traitAliases = $this->getTraitAliases ();
 		foreach ($this->getMethods() as $method) {
 			// Skip private methods of parent classes
 			if ($method->getDeclaringClassName() !== $this->getName() && $method->isPrivate()) {
@@ -1492,6 +1506,16 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 					array('\0, inherits ' . $method->getDeclaringClassName(), ''),
 					$string
 				);
+			}
+			// Replace Aliases
+			if (array_key_exists($method->getName (), $traitAliases))
+			{
+				$string = preg_replace(
+					'~\b'.$method->getName ().'\b~',
+					substr(strrchr($traitAliases[$method->getName ()], ':'), 1),
+					$string
+				);
+				unset ($traitAliases[$method->getName ()]);
 			}
 			if ($method->isStatic()) {
 				$sBuffer .= $string;
@@ -1948,7 +1972,7 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 
 									$this->traitAliases[$rightSide[0]] = $leftSide;
 								} else {
-									$this->traitAliases[$rightSide[0]] = '(null)::' . $leftSide;
+									$this->traitAliases[$rightSide[0]] = $traitName . '::' . $leftSide;
 								}
 
 								$this->traitImports[$leftSide][] = $rightSide;

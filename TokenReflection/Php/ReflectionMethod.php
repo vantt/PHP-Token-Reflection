@@ -123,6 +123,16 @@ class ReflectionMethod extends InternalReflectionMethod implements IReflection, 
 	}
 
 	/**
+	 * Returns if method has defined return type.
+	 *
+	 * @return boolean
+	 */
+	public function hasReturnType()
+	{
+		return PHP_VERSION_ID >= 70000 ? parent::hasReturnType() : null;
+	}
+
+	/**
 	 * Returns if the current reflection comes from a tokenized source.
 	 *
 	 * @return boolean
@@ -297,6 +307,26 @@ class ReflectionMethod extends InternalReflectionMethod implements IReflection, 
 	public function getClosureThis()
 	{
 		return PHP_VERSION_ID >= 50400 ? parent::getClosureThis() : null;
+	}
+
+	/**
+	 * Returns if the method is a generator.
+	 *
+	 * @return boolean
+	 */
+	public function isGenerator()
+	{
+		return PHP_VERSION_ID >= 50500 ? parent::isGenerator() : null;
+	}
+
+	/**
+	 * Returns if the method is variadic.
+	 *
+	 * @return boolean
+	 */
+	public function isVariadic()
+	{
+		return PHP_VERSION_ID >= 50600 ? parent::isVariadic() : null;
 	}
 
 	/**

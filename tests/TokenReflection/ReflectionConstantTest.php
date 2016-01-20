@@ -152,8 +152,8 @@ class ReflectionConstantTest extends Test
 			'typeString' => "Constant [ string TYPE_STRING ] { string }\n",
 			'typeInteger' => "Constant [ integer TYPE_INTEGER ] { 1 }\n",
 			'typeIntegerNegative' => "Constant [ integer TYPE_INTEGER_NEGATIVE ] { -1 }\n",
-			'typeFloat' => "Constant [ double TYPE_FLOAT ] { 1.1 }\n",
-			'typeFloatNegative' => "Constant [ double TYPE_FLOAT_NEGATIVE ] { -1.1 }\n",
+			'typeFloat' => PHP_VERSION_ID >= 70000 ? "Constant [ float TYPE_FLOAT ] { 1.1 }\n" : "Constant [ double TYPE_FLOAT ] { 1.1 }\n",
+			'typeFloatNegative' => PHP_VERSION_ID >= 70000 ? "Constant [ float TYPE_FLOAT_NEGATIVE ] { -1.1 }\n" : "Constant [ double TYPE_FLOAT_NEGATIVE ] { -1.1 }\n",
 			'typeBoolean' => "Constant [ boolean TYPE_BOOLEAN ] { 1 }\n",
 			'typeNull' => "Constant [ null TYPE_NULL ] {  }\n"
 		);
@@ -644,6 +644,34 @@ class ReflectionConstantTest extends Test
 					$this->assertSame($expected_classes[$name][3][$method_name][1][$variable_name], $variable_value, sprintf('%s::%s()::%s', $name, $method_name, $variable_name));
 				}
 			}
+		}
+	}
+
+	/**
+	 * Tests the scalar expressions in constants.
+	 *
+	 * For PHP >= 5.6 only.
+	 */
+	public function testScalarConstants56()
+	{
+		if (PHP_VERSION_ID < 50600) {
+			$this->markTestSkipped('PHP >= 5.6 only');
+		}
+
+		$broker = new Broker(new Broker\Backend\Memory());
+		$broker->process($this->getFilePath('scalar56'));
+
+		require_once ($this->getFilePath('scalar56'));
+
+		$internal_constants = get_defined_constants(true);
+		$internal_constants = $internal_constants['user'];
+
+		$token_constants = $broker->getConstants();
+		$this->assertSame(3, count($token_constants));
+
+		foreach ($token_constants as $name => $reflection) {
+			$this->assertTrue(isset($internal_constants[$name]));
+			$this->assertSame($internal_constants[$name], $reflection->getValue(), $name);
 		}
 	}
 

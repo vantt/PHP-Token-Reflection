@@ -326,6 +326,16 @@ class ReflectionClass implements IReflectionClass
 	}
 
 	/**
+	 * Returns if the class is anonymous.
+	 *
+	 * @return boolean
+	 */
+	public function isAnonymous()
+	{
+		return false;
+	}
+
+	/**
 	 * Returns if the class is a trait.
 	 *
 	 * @return boolean
