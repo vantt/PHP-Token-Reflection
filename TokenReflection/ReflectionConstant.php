@@ -349,6 +349,8 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				'[' => true,
 				']' => true,
 				'.' => true,
+				'?' => true,
+				':' => true,
 				T_STRING => true,
 				T_NS_SEPARATOR => true,
 				T_CONSTANT_ENCAPSED_STRING => true,
