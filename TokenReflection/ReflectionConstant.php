@@ -341,7 +341,7 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 		$tokenStream->skipWhitespaces(true);
 
 		if (PHP_VERSION_ID >= 50600) {
-			static $acceptedTokens = array(
+			$acceptedTokens = array(
 				'-' => true,
 				'+' => true,
 				'(' => true,
@@ -369,7 +369,7 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				T_TRAIT_C => true
 			);
 		} else {
-			static $acceptedTokens = array(
+			$acceptedTokens = array(
 				'-' => true,
 				'+' => true,
 				T_STRING => true,
