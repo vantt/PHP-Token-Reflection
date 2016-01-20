@@ -152,8 +152,8 @@ class ReflectionConstantTest extends Test
 			'typeString' => "Constant [ string TYPE_STRING ] { string }\n",
 			'typeInteger' => "Constant [ integer TYPE_INTEGER ] { 1 }\n",
 			'typeIntegerNegative' => "Constant [ integer TYPE_INTEGER_NEGATIVE ] { -1 }\n",
-			'typeFloat' => "Constant [ double TYPE_FLOAT ] { 1.1 }\n",
-			'typeFloatNegative' => "Constant [ double TYPE_FLOAT_NEGATIVE ] { -1.1 }\n",
+			'typeFloat' => PHP_VERSION_ID >= 70000 ? "Constant [ float TYPE_FLOAT ] { 1.1 }\n" : "Constant [ double TYPE_FLOAT ] { 1.1 }\n",
+			'typeFloatNegative' => PHP_VERSION_ID >= 70000 ? "Constant [ float TYPE_FLOAT_NEGATIVE ] { -1.1 }\n" : "Constant [ double TYPE_FLOAT_NEGATIVE ] { -1.1 }\n",
 			'typeBoolean' => "Constant [ boolean TYPE_BOOLEAN ] { 1 }\n",
 			'typeNull' => "Constant [ null TYPE_NULL ] {  }\n"
 		);
