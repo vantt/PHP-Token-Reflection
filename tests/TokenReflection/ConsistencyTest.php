@@ -250,6 +250,7 @@ class ConsistencyTest extends Test
 
 		if (PHP_VERSION_ID < 50600) {
 			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('isVariadic' => true);
+			$skip['TokenReflection\\ReflectionParameter'] = array('isVariadic' => true);
 		}
 
 		if (PHP_VERSION_ID < 70000) {
