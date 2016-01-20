@@ -667,7 +667,7 @@ class ReflectionConstantTest extends Test
 		$internal_constants = $internal_constants['user'];
 
 		$token_constants = $broker->getConstants();
-		$this->assertSame(3, count($token_constants));
+		$this->assertSame(4, count($token_constants));
 
 		foreach ($token_constants as $name => $reflection) {
 			$this->assertTrue(isset($internal_constants[$name]));
