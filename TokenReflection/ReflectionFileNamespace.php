@@ -348,6 +348,16 @@ class ReflectionFileNamespace extends ReflectionElement
 						}
 					} while ($tokenStream->is(T_STRING));
 					break;
+				case T_STRING:
+					switch ($tokenStream->getTokenValue())
+					{
+						case 'define':
+							// definition case
+						default:
+							break;
+					}
+					$tokenStream->next();
+					break;
 				case T_FUNCTION:
 					$position = $tokenStream->key() + 1;
 					while (isset($skipped[$type = $tokenStream->getType($position)])) {

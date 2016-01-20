@@ -27,35 +27,35 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 	 *
 	 * @var string
 	 */
-	private $declaringClassName;
+	protected $declaringClassName;
 
 	/**
 	 * Constant namespace name.
 	 *
 	 * @var string
 	 */
-	private $namespaceName;
+	protected $namespaceName;
 
 	/**
 	 * Constant value.
 	 *
 	 * @var mixed
 	 */
-	private $value;
+	protected $value;
 
 	/**
 	 * Constant value definition in tokens.
 	 *
 	 * @var array|string
 	 */
-	private $valueDefinition = array();
+	protected $valueDefinition = array();
 
 	/**
 	 * Imported namespace/class aliases.
 	 *
 	 * @var array
 	 */
-	private $aliases = array();
+	protected $aliases = array();
 
 	/**
 	 * Returns the unqualified name (UQN).
