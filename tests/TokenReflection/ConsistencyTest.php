@@ -249,12 +249,12 @@ class ConsistencyTest extends Test
 		);
 
 		if (PHP_VERSION_ID < 50600) {
-			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('isVariadic' => true);
 			$skip['TokenReflection\\ReflectionParameter'] = array('isVariadic' => true);
+			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('isVariadic' => true);
 		}
 
 		if (PHP_VERSION_ID < 70000) {
-			$skip['TokenReflection\\Php\\ReflectionParameter'] = array('hasType' => true, 'getType' => true);
+			$skip['TokenReflection\\Php\\ReflectionParameter'] += array('hasType' => true, 'getType' => true);
 			$skip['TokenReflection\\Php\\ReflectionFunction'] = array('hasReturnType' => true, 'getReturnType' => true);
 			$skip['TokenReflection\\Php\\ReflectionMethod'] = array('hasReturnType' => true, 'getReturnType' => true);
 			$skip['TokenReflection\\Php\\ReflectionClass'] = array('isAnonymous' => true);
