@@ -137,7 +137,7 @@ class PharTest extends Test
 	public function testBZippedPharArchive()
 	{
 		if (!extension_loaded('bz2')) {
-			$this->markTestSkipped('The zlib extension is required to run this test.');
+			$this->markTestSkipped('The bz2 extension is required to run this test.');
 		}
 
 		$testData = array_merge(
