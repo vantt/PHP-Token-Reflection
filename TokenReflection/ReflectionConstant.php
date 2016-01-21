@@ -340,10 +340,32 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 
 		$tokenStream->skipWhitespaces(true);
 
+		$acceptedTokens = array(
+			'-' => true,
+			'+' => true,
+			T_STRING => true,
+			T_NS_SEPARATOR => true,
+			T_CONSTANT_ENCAPSED_STRING => true,
+			T_DNUMBER => true,
+			T_LNUMBER => true,
+			T_DOUBLE_COLON => true,
+			T_CLASS_C => true,
+			T_DIR => true,
+			T_FILE => true,
+			T_FUNC_C => true,
+			T_LINE => true,
+			T_METHOD_C => true,
+			T_NS_C => true,
+			T_TRAIT_C => true
+		);
+
+		if (PHP_VERSION_ID >= 50500) {
+			$acceptedTokens += array(
+				T_CLASS => true,
+			);
+		}
 		if (PHP_VERSION_ID >= 50600) {
-			$acceptedTokens = array(
-				'-' => true,
-				'+' => true,
+			$acceptedTokens += array(
 				'(' => true,
 				')' => true,
 				'[' => true,
@@ -351,43 +373,10 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				'.' => true,
 				'?' => true,
 				':' => true,
-				T_STRING => true,
-				T_NS_SEPARATOR => true,
-				T_CONSTANT_ENCAPSED_STRING => true,
-				T_DNUMBER => true,
-				T_LNUMBER => true,
-				T_DOUBLE_COLON => true,
 				T_POW => true,
 				T_ARRAY => true,
 				T_DOUBLE_ARROW => true,
-				T_CLASS => true,
 				T_CLASS_C => true,
-				T_DIR => true,
-				T_FILE => true,
-				T_FUNC_C => true,
-				T_LINE => true,
-				T_METHOD_C => true,
-				T_NS_C => true,
-				T_TRAIT_C => true
-			);
-		} else {
-			$acceptedTokens = array(
-				'-' => true,
-				'+' => true,
-				T_STRING => true,
-				T_NS_SEPARATOR => true,
-				T_CONSTANT_ENCAPSED_STRING => true,
-				T_DNUMBER => true,
-				T_LNUMBER => true,
-				T_DOUBLE_COLON => true,
-				T_CLASS_C => true,
-				T_DIR => true,
-				T_FILE => true,
-				T_FUNC_C => true,
-				T_LINE => true,
-				T_METHOD_C => true,
-				T_NS_C => true,
-				T_TRAIT_C => true
 			);
 		}
 
