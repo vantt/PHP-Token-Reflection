@@ -522,6 +522,38 @@ class ReflectionClassTest extends Test
 	}
 
 	/**
+	 * Tests getting of class constants.
+	 */
+	public function testConstantScalarExpressions56()
+	{
+		if (PHP_VERSION_ID < 50600) {
+			$this->markTestSkipped('PHP >= 5.6 only');
+		}
+
+		$rfl = $this->getClassReflection('constantScalarExpressions56');
+
+		$this->assertSame($rfl->internal->hasConstant('FOO'), $rfl->token->hasConstant('FOO'));
+		$this->assertTrue($rfl->token->hasConstant('FOO'));
+		$this->assertTrue($rfl->token->hasOwnConstant('FOO'));
+		$this->assertSame($rfl->internal->hasConstant('NONEXISTENT'), $rfl->token->hasConstant('NONEXISTENT'));
+		$this->assertFalse($rfl->token->hasConstant('NONEXISTENT'));
+		$this->assertFalse($rfl->token->hasOwnConstant('NONEXISTENT'));
+		$this->assertFalse($rfl->token->hasOwnConstant('PARENT'));
+
+		$this->assertSame($rfl->internal->getConstant('BAR'), $rfl->token->getConstant('BAR'));
+		$this->assertSame(array(1 => 'one'), $rfl->token->getConstant('BAR'));
+		$this->assertSame($rfl->internal->getConstant('NONEXISTENT'), $rfl->token->getConstant('NONEXISTENT'));
+		$this->assertFalse($rfl->token->getConstant('NONEXISTENT'));
+		$this->assertSame($rfl->internal->getConstants(), $rfl->token->getConstants());
+		$this->assertSame(array('FOO' => 1, 'BAR' => array(1 => 'one'), 'BAZ' => 'foobar', 'BAD' => 'one'), $rfl->token->getConstants());
+		$this->assertSame(array('FOO' => 1, 'BAR' => array(1 => 'one'), 'BAZ' => 'foobar', 'BAD' => 'one'), $rfl->token->getOwnConstants());
+		$this->assertSame(range(0, 3), array_keys($rfl->token->getOwnConstantReflections()));
+		foreach ($rfl->token->getOwnConstantReflections() as $constant) {
+			$this->assertInstanceOf('TokenReflection\ReflectionConstant', $constant);
+		}
+	}
+
+	/**
 	 * Tests getting of class properties.
 	 */
 	public function testProperties()

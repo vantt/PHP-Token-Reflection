@@ -206,10 +206,9 @@ class PharTest extends Test
 		$directory = realpath(__DIR__ . '/../data/');
 		$iterator = new \DirectoryIterator($directory);
 
-		if (PHP_VERSION_ID >= 50600) {
-			$skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true);
-		} else {
-			$skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true, 'constant' => true);
+		$skip = array('broker' => true, 'parseerror' => true, 'duplicities' => true);
+		if (PHP_VERSION_ID < 50600) {
+			$skip += array('constant' => true, 'class' => true);
 		}
 
 		$data = array();

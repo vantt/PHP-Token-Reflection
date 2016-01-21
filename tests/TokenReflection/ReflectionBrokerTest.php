@@ -167,10 +167,11 @@ class ReflectionBrokerTest extends Test
 	{
 		return array(
 			array(
-				'*.php',
-				array(
+				PHP_VERSION_ID >= 50600 ? '*.php' : '*[^6].php',
+				array_filter (array(
 					'abstract.php',
 					'abstract-implicit.php',
+					PHP_VERSION_ID >= 50600 ? 'constant-scalar-expressions56.php' : '',
 					'constants.php',
 					'doc-comment.php',
 					'doc-comment-copydoc.php',
@@ -208,7 +209,7 @@ class ReflectionBrokerTest extends Test
 					'public-constructor.php',
 					'traits.php',
 					'user-defined.php'
-				)
+				))
 			),
 			array(
 				'*no-*.php',
