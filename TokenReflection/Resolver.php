@@ -224,7 +224,7 @@ class Resolver
 	 */
 	final public static function findConstants(array $tokens, ReflectionElement $reflection)
 	{
-		static $accepted = array(
+		$accepted = array(
 			T_DOUBLE_COLON => true,
 			T_STRING => true,
 			T_NS_SEPARATOR => true,
@@ -237,6 +237,9 @@ class Resolver
 			T_NS_C => true,
 			T_TRAIT_C => true
 		);
+		if (PHP_VERSION_ID >= 50500) {
+			$accepted += array (T_CLASS => true);
+		}
 		static $dontResolve = array('true' => true, 'false' => true, 'null' => true);
 
 		// Adding a dummy token to the end
