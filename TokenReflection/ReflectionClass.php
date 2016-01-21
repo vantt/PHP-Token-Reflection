@@ -809,6 +809,10 @@ class ReflectionClass extends ReflectionElement implements IReflectionClass
 			}
 		}
 
+		if (PHP_VERSION_ID >= 50500 && strtolower($name) == 'class') {
+			return new Dummy\ReflectionConstant ($name, $this->getName(), $this->getBroker ());
+		}
+
 		throw new Exception\RuntimeException(sprintf('There is no constant "%s".', $name), Exception\RuntimeException::DOES_NOT_EXIST, $this);
 	}
 
