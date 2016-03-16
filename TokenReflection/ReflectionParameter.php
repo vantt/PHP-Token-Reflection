@@ -591,6 +591,7 @@ class ReflectionParameter extends ReflectionElement implements IReflectionParame
 	protected function parse(Stream $tokenStream, IReflection $parent)
 	{
 		return $this
+			->parsePassedByReference($tokenStream)
 			->parseTypeHint($tokenStream)
 			->parsePassedByReference($tokenStream)
 			->parseName($tokenStream)

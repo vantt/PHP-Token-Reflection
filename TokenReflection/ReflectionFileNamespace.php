@@ -216,6 +216,9 @@ class ReflectionFileNamespace extends ReflectionElement
 								case T_NS_SEPARATOR:
 									$namespaceName .= $tokenStream->getTokenValue();
 									break;
+								case T_FUNCTION:
+									// "use function" in 5.6+
+									break;
 								default:
 									break 2;
 							}
