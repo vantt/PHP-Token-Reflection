@@ -277,6 +277,22 @@ class ReflectionFunctionTest extends Test
    }
 
 	/**
+    * Tests if use function is parsed correctly.
+    */
+   public function testVariadic56()
+   {
+       if (PHP_VERSION_ID < 50600) {
+           $this->markTestSkipped('Tested only on PHP 5.6+');
+       }
+
+       require_once $this->getFilePath('variadic-56');
+       $this->getBroker()->processFile($this->getFilePath('variadic-56'));
+
+       require_once $this->getFilePath('variadic-ref-56');
+       $this->getBroker()->processFile($this->getFilePath('variadic-ref-56'));
+   }
+
+	/**
 	 * Tests if function returns reference.
 	 */
 	public function testReference()
