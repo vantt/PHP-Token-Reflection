@@ -373,12 +373,16 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				'.' => true,
 				'?' => true,
 				':' => true,
+				'!' => true,
 				T_POW => true,
 				T_ARRAY => true,
 				T_DOUBLE_ARROW => true,
 				T_CLASS_C => true,
 				T_BOOLEAN_AND => true,
 				T_BOOLEAN_OR => true,
+				T_LOGICAL_AND => true,
+				T_LOGICAL_OR => true,
+				T_LOGICAL_XOR => true,
 			);
 		}
 
