@@ -377,6 +377,8 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				T_ARRAY => true,
 				T_DOUBLE_ARROW => true,
 				T_CLASS_C => true,
+				T_BOOLEAN_AND => true,
+				T_BOOLEAN_OR => true,
 			);
 		}
 
