@@ -1,5 +1,5 @@
 {
-    "name": "kornrunner/php-token-reflection",
+    "name": "popsul/php-token-reflection",
     "type": "library",
     "description": "Library emulating the PHP internal reflection using just the tokenized source code.",
     "keywords": ["library", "tokenizer", "reflection"],
@@ -16,6 +16,10 @@
         {
             "name": "Boris Momčilović",
             "homepage": "https://github.com/kornrunner"
+        },
+        {
+            "name": "Viktor Suprun",
+            "homepage": "https://github.com/POPSuL"
         }
     ],
     "replace": {
