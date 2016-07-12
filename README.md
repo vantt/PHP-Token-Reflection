@@ -1,6 +1,6 @@
 # PHP Token Reflection #
 
-[![Build Status](https://secure.travis-ci.org/kornrunner/PHP-Token-Reflection.png?branch=develop)](http://travis-ci.org/kornrunner/PHP-Token-Reflection)
+[![Build Status](https://secure.travis-ci.org/POPSuL/PHP-Token-Reflection.png?branch=develop)](http://travis-ci.org/kornrunner/PHP-Token-Reflection)
 
 In short, this library emulates the PHP reflection model using the tokenized PHP source.
 
