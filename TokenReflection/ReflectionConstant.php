@@ -368,8 +368,9 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 			$acceptedTokens += array(
 				'(' => true,
 				')' => true,
-				'[' => true,
+				'[' => true, //arrays
 				']' => true,
+				',' => true, //arrays element delimiter
 				'.' => true,
 				'?' => true,
 				':' => true,
@@ -392,6 +393,8 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 			);
 		}
 
+		$level = 0;
+
 		while (null !== ($type = $tokenStream->getType())) {
 			if (T_START_HEREDOC === $type) {
 				$this->valueDefinition[] = $tokenStream->current();
@@ -402,6 +405,14 @@ class ReflectionConstant extends ReflectionElement implements IReflectionConstan
 				};
 				$tokenStream->next();
 			} elseif (isset($acceptedTokens[$type])) {
+				if ($type === '(' || $type === '[') {
+					$level++;
+ 				} elseif ($type === ')' || $type === ']') {
+					$level--;
+				} elseif ($type === ',' && $level === 0) {
+					//comma not in (expression) or [array]
+					break;
+				}
 				$this->valueDefinition[] = $tokenStream->current();
 				$tokenStream->next();
 			} elseif ($tokenStream->isWhitespace(true)) {
