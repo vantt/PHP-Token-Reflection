@@ -421,6 +421,56 @@ class ReflectionFunctionTest extends Test
 	}
 
 	/**
+	 * Tests return types declarations
+	 *
+	 * @dataProvider testReturnTypesDataProvider
+	 */
+	public function testReturnTypes($functionName, $hasReturnType, $typeName, $isBuiltin, $allowsNull)
+	{
+		$broker = $this->getBroker();
+		$broker->processFile($this->getFilePath('returnTypes'));
+
+		if (PHP_VERSION_ID >= 70000) {
+			require_once $this->getFilePath('returnTypes');
+		}
+
+		$refToken = $broker->getFunction($this->getFunctionName($functionName));
+		$this->assertSame($refToken->hasReturnType(), $hasReturnType);
+		if ($refToken->hasReturnType()) {
+			$this->assertSame((string)$refToken->getReturnType(), $typeName);
+			$this->assertSame($refToken->getReturnType()->isBuiltin(), $isBuiltin);
+			$this->assertSame($refToken->getReturnType()->allowsNull(), $allowsNull);
+		}
+
+		if (PHP_VERSION_ID >= 70000) {
+			$refInternal = new \ReflectionFunction($this->getFunctionName($functionName));
+			$this->assertSame($refToken->hasReturnType(), $refInternal->hasReturnType());
+			if ($refToken->hasReturnType()) {
+				$this->assertSame((string)$refToken->getReturnType(), (string)$refInternal->getReturnType());
+				$this->assertSame($refToken->getReturnType()->isBuiltin(), $refInternal->getReturnType()->isBuiltin());
+				$this->assertSame($refToken->getReturnType()->allowsNull(), $refInternal->getReturnType()->allowsNull());
+			}
+		}
+	}
+
+	public function testReturnTypesDataProvider() {
+		return array(
+			array('NoReturnType', false, '', false, true),
+			array('ReturnsBool', true, 'bool', true, false),
+			array('ReturnsBoolean', true, 'boolean', false, false),
+			array('ReturnsInt', true, 'int', true, false),
+			array('ReturnsInteger', true, 'integer', false, false),
+			array('ReturnsFloat', true, 'float', true, false),
+			array('ReturnsDouble', true, 'double', false, false),
+			array('ReturnsString', true, 'string', true, false),
+			array('ReturnsCallable', true, 'callable', true, false),
+			array('ReturnsArray', true, 'array', true, false),
+			array('ReturnsObject', true, 'stdClass', false, false),
+			array('ReturnsClass', true, 'We\Need\ToGo\Deeper\FunctionReturnType', false, false),
+		);
+	}
+
+	/**
 	 * Returns an internal function reflection.
 	 *
 	 * @return \TokenReflection\Php\ReflectionFunction
