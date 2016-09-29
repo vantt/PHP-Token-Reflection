@@ -58,6 +58,13 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 	private $staticVariablesDefinition = array();
 
 	/**
+	 * Function return type, if present
+	 *
+	 * @var ReflectionType
+	 */
+	private $returnType;
+
+	/**
 	 * Returns the name (FQN).
 	 *
 	 * @return string
@@ -134,21 +141,21 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 	/**
 	 * Returns if the function/method has defined return type
 	 *
-	 * @return string|null
+	 * @return bool
 	 */
 	public function hasReturnType()
 	{
-		return null;
+		return isset($this->returnType);
 	}
 
 	/**
 	 * Returns the function/method return type.
 	 *
-	 * @return string|null
+	 * @return ReflectionType
 	 */
 	public function getReturnType()
 	{
-		return null;
+		return $this->returnType;
 	}
 
 	/**
@@ -319,6 +326,7 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 	{
 		return $this
 			->parseParameters($tokenStream)
+			->parseReturnType($tokenStream)
 			->parseStaticVariables($tokenStream);
 	}
 
@@ -356,6 +364,27 @@ abstract class ReflectionFunctionBase extends ReflectionElement implements IRefl
 		}
 
 		$tokenStream->skipWhitespaces();
+
+		return $this;
+	}
+
+	/**
+	 * Parses function/method php7 return type, if present.
+	 *
+	 * @param \TokenReflection\Stream\StreamBase $tokenStream Token substream
+	 * @return \TokenReflection\ReflectionFunctionBase
+	 */
+	final protected function parseReturnType(Stream $tokenStream)
+	{
+		if ($tokenStream->is(':')) {
+			$tokenStream->skipWhitespaces();
+
+			$this->returnType = new ReflectionType($tokenStream, $this->getBroker(), $this);
+
+			if ($tokenStream->isWhitespace()) {
+				$tokenStream->skipWhitespaces();
+			}
+		}
 
 		return $this;
 	}

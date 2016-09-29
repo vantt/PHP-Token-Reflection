@@ -461,11 +461,11 @@ class ReflectionFunction extends ReflectionElement implements IReflectionFunctio
 	/**
 	 * Returns if the function/method has defined return type.
 	 *
-	 * @return null
+	 * @return bool
 	 */
 	public function hasReturnType()
 	{
-		return null;
+		return false;
 	}
 
 	/**

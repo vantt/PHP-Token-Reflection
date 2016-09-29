@@ -638,6 +638,59 @@ class ReflectionMethodTest extends Test
 	}
 
 	/**
+	 * Tests return types declarations
+	 *
+	 * @dataProvider testReturnTypesDataProvider
+	 */
+	public function testReturnTypes($methodName, $hasReturnType, $typeName, $isBuiltin, $allowsNull)
+	{
+		$broker = $this->getBroker();
+		$broker->processFile($this->getFilePath('returnTypes'));
+		$refClass = $broker->getClass($this->getClassName('_Test'));
+
+		if (PHP_VERSION_ID >= 70000) {
+			require_once $this->getFilePath('returnTypes');
+			$intClass = new \ReflectionClass($this->getClassName('_Test'));
+		}
+
+		$refToken = $refClass->getMethod($this->getMethodName($methodName));
+		$this->assertSame($refToken->hasReturnType(), $hasReturnType);
+		if ($refToken->hasReturnType()) {
+			$this->assertSame((string)$refToken->getReturnType(), $typeName);
+			$this->assertSame($refToken->getReturnType()->isBuiltin(), $isBuiltin);
+			$this->assertSame($refToken->getReturnType()->allowsNull(), $allowsNull);
+		}
+
+		if (PHP_VERSION_ID >= 70000) {
+			$refInternal = $intClass->getMethod($this->getMethodName($methodName));
+			$this->assertSame($refToken->hasReturnType(), $refInternal->hasReturnType());
+			if ($refToken->hasReturnType()) {
+				$this->assertSame((string)$refToken->getReturnType(), (string)$refInternal->getReturnType());
+				$this->assertSame($refToken->getReturnType()->isBuiltin(), $refInternal->getReturnType()->isBuiltin());
+				$this->assertSame($refToken->getReturnType()->allowsNull(), $refInternal->getReturnType()->allowsNull());
+			}
+		}
+	}
+
+	public function testReturnTypesDataProvider() {
+		return array(
+			array('methodNoReturnType', false, '', false, true),
+			array('methodReturnsBool', true, 'bool', true, false),
+			array('methodReturnsBoolean', true, 'boolean', false, false),
+			array('methodReturnsInt', true, 'int', true, false),
+			array('methodReturnsInteger', true, 'integer', false, false),
+			array('methodReturnsFloat', true, 'float', true, false),
+			array('methodReturnsDouble', true, 'double', false, false),
+			array('methodReturnsString', true, 'string', true, false),
+			array('methodReturnsCallable', true, 'callable', true, false),
+			array('methodReturnsArray', true, 'array', true, false),
+			array('methodReturnsObject', true, 'stdClass', false, false),
+			array('methodReturnsClass', true, 'We\Need\ToGo\Deeper\MethodReturnType', false, false),
+			array('methodAbstract', true, 'int', true, false),
+		);
+	}
+
+	/**
 	 * Returns an internal method reflection.
 	 *
 	 * @return \TokenReflection\Php\ReflectionMethod

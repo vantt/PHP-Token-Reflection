@@ -287,7 +287,7 @@ abstract class StreamBase implements SeekableIterator, Countable, ArrayAccess, S
 	 * Returns the current token value.
 	 *
 	 * @param integer $position Token position; if none given, consider the current iteration position
-	 * @return stirng
+	 * @return string
 	 */
 	public function getTokenValue($position = -1)
 	{
