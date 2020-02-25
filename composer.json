@@ -1,8 +1,9 @@
 {
-    "name": "popsul/php-token-reflection",
+    "name": "vantt/php-token-reflection",
     "type": "library",
     "description": "Library emulating the PHP internal reflection using just the tokenized source code.",
     "keywords": ["library", "tokenizer", "reflection"],
+    "homepage": "http://https://github.com/vantt/PHP-Token-Reflection",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -20,6 +21,10 @@
         {
             "name": "Viktor Suprun",
             "homepage": "https://github.com/POPSuL"
+        },
+	{
+            "name": "Tran Toan Van",
+            "homepage": "https://github.com/vantt"
         }
     ],
     "replace": {
